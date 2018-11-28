@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="postgresModel.Store" Provider="Npgsql" ProviderManifestToken="10.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="fileinfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uuid" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="filename" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="relativepath" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="timestamp" Type="float8" />
+          <Property Name="hash" Type="bytea" />
+          <Property Name="size" Type="int8" />
+          <Property Name="data" Type="bytea" Nullable="false" />
+          <Property Name="compressiontype" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="compressedsize" Type="int8" />
+        </EntityType>
+        <EntityType Name="track">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uuid" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="uuidtrackinfo" Type="varchar" MaxLength="8000" />
+          <Property Name="trackname" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="location" Type="varchar" MaxLength="8000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="trackinfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uuid" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="uuidfile" Type="varchar" MaxLength="8000" />
+        </EntityType>
+        <EntityContainer Name="postgresModelStoreContainer">
+          <EntitySet Name="fileinfo" EntityType="Self.fileinfo" Schema="public" store:Type="Tables" />
+          <EntitySet Name="track" EntityType="Self.track" Schema="public" store:Type="Tables" />
+          <EntitySet Name="trackinfo" EntityType="Self.trackinfo" Schema="public" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="postgresModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="tracks" EntityType="postgresModel.track" />
+          <EntitySet Name="trackinfoes" EntityType="postgresModel.trackinfo" />
+          <EntitySet Name="fileinfoes" EntityType="postgresModel.fileinfo" />
+        </EntityContainer>
+        <EntityType Name="track">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uuid" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="uuidtrackinfo" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="trackname" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="location" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="trackinfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uuid" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="uuidfile" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="fileinfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uuid" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="filename" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="relativepath" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="timestamp" Type="Double" />
+          <Property Name="hash" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="size" Type="Int64" />
+          <Property Name="data" Type="Binary" Nullable="false" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="compressiontype" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="compressedsize" Type="Int64" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="postgresModelStoreContainer" CdmEntityContainer="DBEntities" >
+          <EntitySetMapping Name="tracks">
+            <EntityTypeMapping TypeName="postgresModel.track">
+              <MappingFragment StoreEntitySet="track">
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="trackname" ColumnName="trackname" />
+                <ScalarProperty Name="uuidtrackinfo" ColumnName="uuidtrackinfo" />
+                <ScalarProperty Name="uuid" ColumnName="uuid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trackinfoes">
+            <EntityTypeMapping TypeName="postgresModel.trackinfo">
+              <MappingFragment StoreEntitySet="trackinfo">
+                <ScalarProperty Name="uuidfile" ColumnName="uuidfile" />
+                <ScalarProperty Name="uuid" ColumnName="uuid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fileinfoes">
+            <EntityTypeMapping TypeName="postgresModel.fileinfo">
+              <MappingFragment StoreEntitySet="fileinfo">
+                <ScalarProperty Name="compressedsize" ColumnName="compressedsize" />
+                <ScalarProperty Name="compressiontype" ColumnName="compressiontype" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="hash" ColumnName="hash" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="relativepath" ColumnName="relativepath" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
+                <ScalarProperty Name="uuid" ColumnName="uuid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
